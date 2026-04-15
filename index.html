@@ -7,12 +7,28 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    body { font-family: 'Inter', system-ui, sans-serif; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
     .hero-bg {
-      background-image: linear-gradient(rgba(10,10,20,0.85), rgba(10,10,20,0.92)), url('pronto-bg.png');
+      background-image: linear-gradient(rgba(10,10,20,0.78), rgba(10,10,20,0.88)), 
+                        url('4189768043_11177482306_1775174078082.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .input {
+      transition: all 0.3s ease;
+    }
+    .input:focus {
+      border-color: rgb(168 85 247);
+      box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
+      transform: translateY(-1px);
     }
   </style>
 </head>
@@ -21,52 +37,61 @@
   <div class="min-h-screen flex items-center justify-center p-6">
     <div class="max-w-4xl w-full">
 
-      <div class="text-center mb-12">
+      <!-- Header -->
+      <div class="text-center mb-16">
         <div class="flex justify-center mb-6">
-          <div class="w-24 h-24 bg-gradient-to-br from-purple-600 to-violet-500 rounded-3xl flex items-center justify-center text-7xl shadow-2xl">⚡</div>
+          <div class="w-28 h-28 bg-gradient-to-br from-purple-500 via-violet-500 to-fuchsia-500 rounded-3xl flex items-center justify-center text-7xl shadow-2xl shadow-purple-500/50">
+            ⚡
+          </div>
         </div>
-        <h1 class="text-6xl font-bold tracking-tighter">PRONTO STUDIO</h1>
-        <p class="text-2xl text-zinc-300 mt-3">Creator & Staff Applications</p>
+        <h1 class="text-6xl font-bold tracking-tighter neon-text">PRONTO STUDIO</h1>
+        <p class="text-xl text-zinc-300 mt-4">Join the Movement</p>
       </div>
 
-      <!-- Tabs -->
-      <div class="flex justify-center mb-10 bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-1.5 w-fit mx-auto">
-        <button onclick="switchTab(0)" id="tab0" 
-          class="px-12 py-4 rounded-3xl font-semibold text-lg transition-all">Creator Application</button>
-        <button onclick="switchTab(1)" id="tab1" 
-          class="px-12 py-4 rounded-3xl font-semibold text-lg transition-all">Staff Application</button>
+      <!-- Modern Tabs -->
+      <div class="flex justify-center mb-12">
+        <div class="glass rounded-3xl p-1.5 flex">
+          <button onclick="switchTab(0)" id="tab0"
+            class="px-10 py-4 rounded-3xl font-semibold text-lg transition-all">Creator Application</button>
+          <button onclick="switchTab(1)" id="tab1"
+            class="px-10 py-4 rounded-3xl font-semibold text-lg transition-all">Staff Application</button>
+        </div>
       </div>
 
       <!-- Creator Form -->
-      <div id="creator-form" class="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-10 border border-purple-500/30">
+      <div id="creator-form" class="glass rounded-3xl p-12">
+        <h2 class="text-4xl font-bold mb-10 text-center">Creator Application</h2>
         <form onsubmit="submitCreator(event)" class="space-y-8">
-          <div class="grid md:grid-cols-2 gap-6">
+          <div class="grid md:grid-cols-2 gap-8">
             <div>
-              <label class="text-zinc-400 text-sm mb-2 block">Full Name <span class="text-red-500">*</span></label>
-              <input type="text" id="c-name" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+              <label class="block text-sm text-zinc-300 mb-3">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="c-name" required 
+                class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-2xl px-7 py-5 text-lg focus:border-purple-500 outline-none">
             </div>
             <div>
-              <label class="text-zinc-400 text-sm mb-2 block">Email <span class="text-red-500">*</span></label>
-              <input type="email" id="c-email" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+              <label class="block text-sm text-zinc-300 mb-3">Email Address <span class="text-red-500">*</span></label>
+              <input type="email" id="c-email" required 
+                class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-2xl px-7 py-5 text-lg focus:border-purple-500 outline-none">
             </div>
           </div>
 
           <div>
-            <label class="text-zinc-400 text-sm mb-2 block">Social Media Links</label>
-            <input type="text" id="c-social" placeholder="Instagram, TikTok, YouTube, X (separate with commas)" 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+            <label class="block text-sm text-zinc-300 mb-3">Social Media Links</label>
+            <input type="text" id="c-social" placeholder="Instagram, TikTok, YouTube, X..." 
+              class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-2xl px-7 py-5 text-lg focus:border-purple-500 outline-none">
           </div>
 
-          <div class="grid md:grid-cols-2 gap-6">
+          <div class="grid md:grid-cols-2 gap-8">
             <div>
-              <label class="text-zinc-400 text-sm mb-2 block">Portfolio / Website</label>
+              <label class="block text-sm text-zinc-300 mb-3">Portfolio / Website</label>
               <input type="url" id="c-portfolio" placeholder="https://" 
-                class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+                class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-2xl px-7 py-5 text-lg focus:border-purple-500 outline-none">
             </div>
             <div>
-              <label class="text-zinc-400 text-sm mb-2 block">Content Niche <span class="text-red-500">*</span></label>
-              <select id="c-niche" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
-                <option value="">Choose niche...</option>
+              <label class="block text-sm text-zinc-300 mb-3">Content Niche <span class="text-red-500">*</span></label>
+              <select id="c-niche" required 
+                class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-2xl px-7 py-5 text-lg focus:border-purple-500 outline-none">
+                <option value="">Select your niche...</option>
                 <option value="Gaming">Gaming</option>
                 <option value="Comedy">Comedy / Skits</option>
                 <option value="Tech">Tech</option>
@@ -79,40 +104,39 @@
           </div>
 
           <div>
-            <label class="text-zinc-400 text-sm mb-2 block">Audience Size</label>
-            <input type="text" id="c-audience" placeholder="e.g. TikTok 150K, YouTube 80K" 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+            <label class="block text-sm text-zinc-300 mb-3">Why do you want to join Pronto Studio? <span class="text-red-500">*</span></label>
+            <textarea id="c-why" rows="6" required placeholder="Be honest and detailed..." 
+              class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-3xl px-7 py-5 text-lg focus:border-purple-500 outline-none resize-none"></textarea>
           </div>
 
-          <div>
-            <label class="text-zinc-400 text-sm mb-2 block">Why do you want to join Pronto Studio? <span class="text-red-500">*</span></label>
-            <textarea id="c-why" rows="6" required placeholder="Tell us why you're a good fit..." 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500"></textarea>
-          </div>
-
-          <button type="submit" class="w-full py-6 bg-gradient-to-r from-purple-600 to-violet-600 rounded-3xl font-bold text-xl">
+          <button type="submit" 
+            class="w-full py-7 bg-gradient-to-r from-purple-600 via-violet-600 to-fuchsia-600 rounded-3xl font-bold text-2xl hover:brightness-110 transition-all active:scale-95">
             Submit Creator Application
           </button>
         </form>
       </div>
 
       <!-- Staff Form -->
-      <div id="staff-form" class="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-10 border border-cyan-500/30 hidden">
+      <div id="staff-form" class="glass rounded-3xl p-12 hidden">
+        <h2 class="text-4xl font-bold mb-10 text-center">Staff Application</h2>
         <form onsubmit="submitStaff(event)" class="space-y-8">
-          <div class="grid md:grid-cols-2 gap-6">
+          <div class="grid md:grid-cols-2 gap-8">
             <div>
-              <label class="text-zinc-400 text-sm mb-2 block">Full Name <span class="text-red-500">*</span></label>
-              <input type="text" id="s-name" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500">
+              <label class="block text-sm text-zinc-300 mb-3">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="s-name" required 
+                class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-2xl px-7 py-5 text-lg focus:border-cyan-500 outline-none">
             </div>
             <div>
-              <label class="text-zinc-400 text-sm mb-2 block">Email <span class="text-red-500">*</span></label>
-              <input type="email" id="s-email" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500">
+              <label class="block text-sm text-zinc-300 mb-3">Email Address <span class="text-red-500">*</span></label>
+              <input type="email" id="s-email" required 
+                class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-2xl px-7 py-5 text-lg focus:border-cyan-500 outline-none">
             </div>
           </div>
 
           <div>
-            <label class="text-zinc-400 text-sm mb-2 block">Role Applying For <span class="text-red-500">*</span></label>
-            <select id="s-role" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500">
+            <label class="block text-sm text-zinc-300 mb-3">Role Applying For <span class="text-red-500">*</span></label>
+            <select id="s-role" required 
+              class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-2xl px-7 py-5 text-lg focus:border-cyan-500 outline-none">
               <option value="">Select role...</option>
               <option value="Moderator">Moderator</option>
               <option value="Editor">Editor</option>
@@ -123,17 +147,21 @@
           </div>
 
           <div>
-            <label class="text-zinc-400 text-sm mb-2 block">Experience & Why we should hire you <span class="text-red-500">*</span></label>
-            <textarea id="s-why" rows="8" required placeholder="Describe your experience and why you're a great fit..." 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500"></textarea>
+            <label class="block text-sm text-zinc-300 mb-3">Why should we hire you? <span class="text-red-500">*</span></label>
+            <textarea id="s-why" rows="7" required placeholder="Tell us about your experience and why you're perfect for the team..." 
+              class="input w-full bg-zinc-900/70 border border-zinc-700 rounded-3xl px-7 py-5 text-lg focus:border-cyan-500 outline-none resize-none"></textarea>
           </div>
 
-          <button type="submit" class="w-full py-6 bg-gradient-to-r from-cyan-600 to-teal-600 rounded-3xl font-bold text-xl">
+          <button type="submit" 
+            class="w-full py-7 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-3xl font-bold text-2xl hover:brightness-110 transition-all active:scale-95">
             Submit Staff Application
           </button>
         </form>
       </div>
 
+      <p class="text-center text-zinc-400 text-sm mt-10">
+        All applications are sent directly to the team via Discord
+      </p>
     </div>
   </div>
 
@@ -143,71 +171,55 @@
     function switchTab(n) {
       document.getElementById('creator-form').classList.toggle('hidden', n !== 0);
       document.getElementById('staff-form').classList.toggle('hidden', n !== 1);
+      
       document.getElementById('tab0').classList.toggle('bg-zinc-800', n === 0);
       document.getElementById('tab1').classList.toggle('bg-zinc-800', n === 1);
     }
 
     async function sendToDiscord(title, color, fields) {
-      const payload = {
-        username: "Pronto Studio Bot",
-        embeds: [{
-          title: title,
-          color: color,
-          fields: fields,
-          timestamp: new Date().toISOString()
-        }]
-      };
-
       try {
         await fetch(WEBHOOK_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({
+            username: "Pronto Bot",
+            embeds: [{ title, color, fields, timestamp: new Date().toISOString() }]
+          })
         });
-      } catch (e) {
-        console.log("Sent to Discord");
-      }
+      } catch (e) {}
     }
 
     function submitCreator(e) {
       e.preventDefault();
-
       const fields = [
-        { name: "Name", value: document.getElementById("c-name").value || "N/A", inline: true },
-        { name: "Email", value: document.getElementById("c-email").value || "N/A", inline: true },
-        { name: "Social Media", value: document.getElementById("c-social").value || "None", inline: false },
-        { name: "Portfolio", value: document.getElementById("c-portfolio").value || "None", inline: false },
-        { name: "Niche", value: document.getElementById("c-niche").value || "Not selected", inline: true },
-        { name: "Audience Size", value: document.getElementById("c-audience").value || "Not specified", inline: true },
-        { name: "Why Join?", value: document.getElementById("c-why").value || "No message", inline: false }
+        { name: "Name", value: document.getElementById("c-name").value, inline: true },
+        { name: "Email", value: document.getElementById("c-email").value, inline: true },
+        { name: "Social Media", value: document.getElementById("c-social").value || "None" },
+        { name: "Portfolio", value: document.getElementById("c-portfolio").value || "None" },
+        { name: "Niche", value: document.getElementById("c-niche").value || "Not selected" },
+        { name: "Why Join?", value: document.getElementById("c-why").value }
       ];
 
       sendToDiscord("🎥 New Creator Application", 0xa855f7, fields);
-      
-      alert("✅ Your Creator Application has been sent successfully!\nThe Pronto Studio team has been notified on Discord.");
+      alert("✅ Creator Application submitted successfully!\nThe team has been notified.");
       e.target.reset();
     }
 
     function submitStaff(e) {
       e.preventDefault();
-
       const fields = [
-        { name: "Name", value: document.getElementById("s-name").value || "N/A", inline: true },
-        { name: "Email", value: document.getElementById("s-email").value || "N/A", inline: true },
-        { name: "Role", value: document.getElementById("s-role").value || "Not selected", inline: true },
-        { name: "Why Hire You?", value: document.getElementById("s-why").value || "No message", inline: false }
+        { name: "Name", value: document.getElementById("s-name").value, inline: true },
+        { name: "Email", value: document.getElementById("s-email").value, inline: true },
+        { name: "Role", value: document.getElementById("s-role").value },
+        { name: "Why Hire You?", value: document.getElementById("s-why").value }
       ];
 
       sendToDiscord("🛡️ New Staff Application", 0x22d3ee, fields);
-      
-      alert("✅ Your Staff Application has been sent successfully!\nThe Pronto Studio team has been notified on Discord.");
+      alert("✅ Staff Application submitted successfully!\nThe team has been notified.");
       e.target.reset();
     }
 
-    // Start with Creator tab open
-    window.onload = () => {
-      switchTab(0);
-    };
+    window.onload = () => switchTab(0);
   </script>
 </body>
 </html>

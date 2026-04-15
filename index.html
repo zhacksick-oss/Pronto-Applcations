@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CONTENT CREW • Join Us</title>
+  <title>Pronto Studio • Applications</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
@@ -12,54 +12,130 @@
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
 
-  <div class="max-w-4xl mx-auto px-6 py-24 text-center">
-    <h1 class="text-6xl font-bold mb-4">JOIN THE CREW</h1>
-    <p class="text-xl text-zinc-400 mb-12">Staff & Content Creator Applications</p>
-
-    <!-- Staff Form -->
-    <div class="bg-zinc-900 rounded-3xl p-10 mb-10">
-      <h2 class="text-3xl font-semibold mb-8">Staff Application</h2>
-      <form action="https://formsubmit.co/YOUR_EMAIL_HERE@gmail.com" method="POST" class="space-y-6">
-        <input type="hidden" name="type" value="Staff">
-        <input type="hidden" name="_subject" value="New Staff Application">
-        
-        <div class="grid grid-cols-2 gap-6">
-          <input type="text" name="name" placeholder="Full Name" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
-          <input type="text" name="discord" placeholder="Discord Username" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
-        </div>
-        
-        <input type="email" name="email" placeholder="Email Address" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
-        
-        <textarea name="experience" rows="4" placeholder="Previous experience..." required class="bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 w-full"></textarea>
-        
-        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 py-5 rounded-2xl font-bold text-lg">
-          Submit Staff Application
-        </button>
-      </form>
-    </div>
-
-    <!-- Content Creator Form -->
-    <div class="bg-zinc-900 rounded-3xl p-10">
-      <h2 class="text-3xl font-semibold mb-8">Content Creator Application</h2>
-      <form action="https://formsubmit.co/YOUR_EMAIL_HERE@gmail.com" method="POST" class="space-y-6">
-        <input type="hidden" name="type" value="Content Creator">
-        <input type="hidden" name="_subject" value="New Content Creator Application">
-        
-        <div class="grid grid-cols-2 gap-6">
-          <input type="text" name="name" placeholder="Full Name" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
-          <input type="text" name="tiktok" placeholder="@tiktokusername" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
-        </div>
-        
-        <input type="text" name="avg_views" placeholder="Average Views (e.g. 200K)" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
-        
-        <textarea name="why" rows="4" placeholder="Why do you want to join?..." required class="bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 w-full"></textarea>
-        
-        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 py-5 rounded-2xl font-bold text-lg">
-          Submit Content Application
-        </button>
-      </form>
+  <!-- Landing Page -->
+  <div id="landing" class="min-h-screen flex items-center justify-center px-6">
+    <div class="max-w-2xl text-center">
+      <div class="flex justify-center mb-6">
+        <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-3xl">⚡</div>
+      </div>
+      <h1 class="text-6xl font-bold tracking-tighter mb-4">Pronto Studio</h1>
+      <p class="text-2xl text-zinc-400 mb-12">Creator & Staff Applications</p>
+      
+      <button onclick="showPasswordModal()" 
+        class="bg-white text-black px-10 py-5 rounded-3xl text-xl font-semibold hover:bg-zinc-200 transition flex items-center gap-3 mx-auto">
+        <i class="fa-solid fa-lock"></i>
+        Access Application Forms
+      </button>
+      
+      <p class="text-zinc-500 mt-8 text-sm">Only team members can access the forms</p>
     </div>
   </div>
 
+  <!-- Password Modal -->
+  <div id="password-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+    <div class="bg-zinc-900 rounded-3xl p-10 w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-6 text-center">Enter Password</h2>
+      <input type="password" id="password-input" 
+        class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:outline-none focus:border-purple-500"
+        placeholder="Enter password">
+      <div class="flex gap-4 mt-6">
+        <button onclick="hidePasswordModal()" 
+          class="flex-1 py-4 border border-zinc-700 rounded-2xl font-medium">Cancel</button>
+        <button onclick="checkPassword()" 
+          class="flex-1 py-4 bg-purple-600 hover:bg-purple-700 rounded-2xl font-medium">Unlock Forms</button>
+      </div>
+      <p id="error-msg" class="text-red-500 text-center mt-4 hidden">Wrong password. Try again.</p>
+    </div>
+  </div>
+
+  <!-- Main Application Page (Hidden until password is correct) -->
+  <div id="main-app" class="hidden min-h-screen bg-zinc-950 py-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex justify-between items-center mb-12">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-purple-600 rounded-2xl flex items-center justify-center text-3xl">⚡</div>
+          <div>
+            <h1 class="text-4xl font-bold">Pronto Studio</h1>
+            <p class="text-zinc-400">Application Management</p>
+          </div>
+        </div>
+        <button onclick="logout()" class="text-zinc-400 hover:text-white flex items-center gap-2">
+          <i class="fa-solid fa-right-from-bracket"></i> Exit
+        </button>
+      </div>
+
+      <h2 class="text-3xl font-semibold mb-10">Creator & Staff Applications</h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Staff Application -->
+        <div class="bg-zinc-900 rounded-3xl p-10">
+          <h3 class="text-2xl font-semibold mb-8 flex items-center gap-3">
+            <i class="fa-solid fa-briefcase text-purple-400"></i> Staff Application
+          </h3>
+          <form action="https://formsubmit.co/YOUR_EMAIL@gmail.com" method="POST" class="space-y-6">
+            <input type="hidden" name="_subject" value="NEW STAFF APPLICATION">
+            <input type="text" name="name" placeholder="Full Name *" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4">
+            <input type="email" name="email" placeholder="Email Address *" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4">
+            <input type="text" name="discord" placeholder="Discord Username" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4">
+            <textarea name="experience" rows="4" placeholder="Previous experience & why you want to join *" required class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4"></textarea>
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 py-5 rounded-2xl font-bold">Submit Staff Application</button>
+          </form>
+        </div>
+
+        <!-- Creator Application -->
+        <div class="bg-zinc-900 rounded-3xl p-10">
+          <h3 class="text-2xl font-semibold mb-8 flex items-center gap-3">
+            <i class="fa-solid fa-video text-purple-400"></i> Creator Application
+          </h3>
+          <form action="https://formsubmit.co/YOUR_EMAIL@gmail.com" method="POST" class="space-y-6">
+            <input type="hidden" name="_subject" value="NEW CREATOR APPLICATION">
+            <input type="text" name="name" placeholder="Full Name *" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4">
+            <input type="email" name="email" placeholder="Email Address *" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4">
+            <input type="text" name="tiktok" placeholder="TikTok Username @" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4">
+            <input type="text" name="avg_views" placeholder="Average Views per video" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4">
+            <textarea name="niche" rows="3" placeholder="Content Niche *" required class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4"></textarea>
+            <textarea name="why" rows="3" placeholder="Why do you want to join Pronto Studio? *" required class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4"></textarea>
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 py-5 rounded-2xl font-bold">Submit Creator Application</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const correctPassword = "pronto2026";   // ← CHANGE THIS TO YOUR OWN PASSWORD
+
+    function showPasswordModal() {
+      document.getElementById('password-modal').classList.remove('hidden');
+      document.getElementById('password-input').focus();
+    }
+
+    function hidePasswordModal() {
+      document.getElementById('password-modal').classList.add('hidden');
+      document.getElementById('error-msg').classList.add('hidden');
+    }
+
+    function checkPassword() {
+      const input = document.getElementById('password-input').value;
+      if (input === correctPassword) {
+        hidePasswordModal();
+        document.getElementById('landing').classList.add('hidden');
+        document.getElementById('main-app').classList.remove('hidden');
+      } else {
+        document.getElementById('error-msg').classList.remove('hidden');
+      }
+    }
+
+    function logout() {
+      document.getElementById('main-app').classList.add('hidden');
+      document.getElementById('landing').classList.remove('hidden');
+      document.getElementById('password-input').value = '';
+    }
+
+    // Allow pressing Enter in password field
+    document.getElementById('password-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+  </script>
 </body>
 </html>

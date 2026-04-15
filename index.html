@@ -3,213 +3,226 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pronto Studio • Applications</title>
+  <title>Pronto Studio • Admin</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
-    .glass { backdrop-filter: blur(16px); }
-    .input {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    .dashboard-bg {
+      background-image: linear-gradient(rgba(10, 10, 20, 0.88), rgba(10, 10, 20, 0.95)), 
+                        url('pronto-bg.png'); /* Put your Roblox Pronto Studio screenshot here as pronto-bg.png */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
-    .input:focus {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 15px -3px rgb(168 85 247 / 0.15);
-    }
+    .neon-text { text-shadow: 0 0 25px rgb(168 85 247); }
+    .modal { animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   </style>
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
 
-  <!-- Top Bar -->
-  <nav class="border-b border-zinc-800 bg-zinc-950/70 glass sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-8 py-5 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-violet-600 rounded-2xl flex items-center justify-center text-3xl shadow-xl">
-          ⚡
-        </div>
-        <div class="font-bold text-3xl tracking-tighter">Pronto Studio</div>
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="min-h-screen flex items-center justify-center dashboard-bg">
+    <div class="bg-zinc-900/90 backdrop-blur-2xl border border-purple-500/30 rounded-3xl p-10 w-full max-w-md mx-4 shadow-2xl">
+      <div class="flex justify-center mb-8">
+        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-violet-600 rounded-3xl flex items-center justify-center text-5xl shadow-xl">⚡</div>
       </div>
-      
-      <div class="flex items-center gap-6 text-sm">
-        <button onclick="showOwnerPanel()" 
-          class="flex items-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-2xl transition">
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>Owner Access</span>
+      <h1 class="text-4xl font-bold tracking-tighter text-center neon-text mb-2">Pronto Studio</h1>
+      <p class="text-center text-zinc-400 mb-10">Owner Admin Dashboard</p>
+
+      <div class="space-y-6">
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2">Username</label>
+          <input id="username" type="text" value="owner" 
+            class="w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-4 outline-none text-lg">
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2">Password</label>
+          <input id="password" type="password" value="pronto123"
+            class="w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-4 outline-none text-lg">
+        </div>
+
+        <div class="flex items-center justify-between text-sm">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input id="remember-me" type="checkbox" checked class="w-4 h-4 accent-purple-600">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="text-purple-400 hover:text-purple-300">Forgot password?</a>
+        </div>
+
+        <button onclick="login()" 
+          class="w-full bg-gradient-to-r from-purple-600 to-violet-600 hover:brightness-110 py-5 rounded-3xl font-bold text-xl transition">
+          Sign In
         </button>
+
+        <p id="login-error" class="text-red-500 text-center hidden">Invalid username or password</p>
       </div>
-    </div>
-  </nav>
 
-  <div class="max-w-2xl mx-auto px-6 pt-16 pb-24">
-    
-    <div class="text-center mb-12">
-      <h1 class="text-6xl font-bold tracking-tighter mb-4">Join Pronto Studio</h1>
-      <p class="text-zinc-400 text-xl">Creator or Staff Application</p>
-    </div>
-
-    <!-- Modern Toggle -->
-    <div class="flex bg-zinc-900 p-1.5 rounded-3xl max-w-md mx-auto mb-16 shadow-inner">
-      <button onclick="switchTab(0)" id="tab0"
-        class="flex-1 py-4 text-lg font-semibold rounded-3xl transition-all duration-300">
-        Creator Application
-      </button>
-      <button onclick="switchTab(1)" id="tab1"
-        class="flex-1 py-4 text-lg font-semibold rounded-3xl transition-all duration-300">
-        Staff Application
-      </button>
-    </div>
-
-    <!-- Form Card -->
-    <div class="bg-zinc-900/70 glass border border-zinc-700/50 rounded-3xl p-10 shadow-2xl">
-      <form id="mainForm" action="https://formsubmit.co/YOUR_EMAIL@gmail.com" method="POST" class="space-y-8">
-
-        <input type="hidden" name="_subject" id="subject" value="NEW CREATOR APPLICATION">
-        <input type="hidden" name="_template" value="table">
-
-        <!-- Full Name -->
-        <div>
-          <label class="text-zinc-400 text-sm font-medium mb-2 block">Full Name <span class="text-red-500">*</span></label>
-          <input type="text" name="full_name" required
-            class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none">
-        </div>
-
-        <!-- Email -->
-        <div>
-          <label class="text-zinc-400 text-sm font-medium mb-2 block">Email Address <span class="text-red-500">*</span></label>
-          <input type="email" name="email" required
-            class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none">
-        </div>
-
-        <!-- Dynamic Fields -->
-        <div id="dynamicContent" class="space-y-8"></div>
-
-        <!-- Social Links -->
-        <div>
-          <label class="text-zinc-400 text-sm font-medium mb-2 block">Social Media Links</label>
-          <input type="text" name="social_links" placeholder="Instagram, TikTok, YouTube, X (comma separated)"
-            class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none">
-        </div>
-
-        <!-- Portfolio -->
-        <div>
-          <label class="text-zinc-400 text-sm font-medium mb-2 block">Portfolio / Website</label>
-          <input type="url" name="portfolio" placeholder="https://yourportfolio.com"
-            class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none">
-        </div>
-
-        <button type="submit" 
-          class="w-full mt-8 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 py-7 rounded-3xl font-bold text-xl transition-all active:scale-95">
-          Submit Application
-        </button>
-      </form>
+      <div class="text-center text-xs text-zinc-500 mt-8">
+        Demo • Owner Access Only
+      </div>
     </div>
   </div>
 
-  <!-- Owner / Staff Panel Modal -->
-  <div id="ownerModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-[100]">
-    <div class="bg-zinc-900 rounded-3xl p-10 max-w-md w-full border border-purple-500/30">
-      <h2 class="text-3xl font-bold mb-8 text-center">Owner / Staff Panel</h2>
-      <p class="text-zinc-400 text-center mb-8">Enter password to access management panel</p>
-      
-      <input type="password" id="ownerPass" placeholder="Enter owner password"
-        class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-5 text-lg mb-6 outline-none focus:border-purple-500">
-      
-      <div class="flex gap-4">
-        <button onclick="hideOwnerPanel()" 
-          class="flex-1 py-4 border border-zinc-700 rounded-2xl font-medium">Cancel</button>
-        <button onclick="checkOwnerPassword()" 
-          class="flex-1 py-4 bg-purple-600 hover:bg-purple-700 rounded-2xl font-medium">Unlock Panel</button>
+  <!-- DASHBOARD (hidden initially) -->
+  <div id="dashboard-screen" class="hidden">
+
+    <!-- Sidebar (same as before) -->
+    <div class="fixed left-0 top-0 h-full w-72 bg-zinc-950 border-r border-zinc-800 flex flex-col z-50">
+      <div class="p-6 border-b border-zinc-800 flex items-center gap-3">
+        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-cyan-400 rounded-2xl flex items-center justify-center text-4xl shadow-[0_0_25px_-5px] shadow-purple-500">⚡</div>
+        <div>
+          <h1 class="text-3xl font-bold tracking-tighter neon-text">PRONTO STUDIO</h1>
+          <p class="text-xs text-purple-400 tracking-[2px]">ADMIN DASHBOARD</p>
+        </div>
       </div>
-      
-      <p id="ownerError" class="text-red-500 text-center mt-4 hidden">Incorrect password</p>
+
+      <div class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+        <a onclick="navigateTo('dashboard')" class="sidebar-link flex items-center gap-3 px-5 py-4 rounded-2xl text-lg font-medium active bg-zinc-800" id="nav-dashboard">
+          <i class="fa-solid fa-gauge"></i> Overview
+        </a>
+        <a onclick="navigateTo('applications')" class="sidebar-link flex items-center gap-3 px-5 py-4 rounded-2xl text-lg font-medium" id="nav-applications">
+          <i class="fa-solid fa-file-lines"></i> Applications
+        </a>
+        <a onclick="navigateTo('forms')" class="sidebar-link flex items-center gap-3 px-5 py-4 rounded-2xl text-lg font-medium" id="nav-forms">
+          <i class="fa-solid fa-pen-to-square"></i> Form Builder
+        </a>
+        <a onclick="navigateTo('customization')" class="sidebar-link flex items-center gap-3 px-5 py-4 rounded-2xl text-lg font-medium" id="nav-customization">
+          <i class="fa-solid fa-sliders"></i> Customization
+        </a>
+        <a onclick="navigateTo('analytics')" class="sidebar-link flex items-center gap-3 px-5 py-4 rounded-2xl text-lg font-medium" id="nav-analytics">
+          <i class="fa-solid fa-chart-pie"></i> Analytics
+        </a>
+        <a onclick="navigateTo('audit')" class="sidebar-link flex items-center gap-3 px-5 py-4 rounded-2xl text-lg font-medium" id="nav-audit">
+          <i class="fa-solid fa-clock-rotate-left"></i> Audit Log
+        </a>
+      </div>
+
+      <div class="p-4 border-t border-zinc-800">
+        <div class="flex items-center justify-between px-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 bg-gradient-to-br from-green-400 to-cyan-400 rounded-2xl flex items-center justify-center text-xl">👑</div>
+            <div>
+              <div class="font-semibold">Lil • Owner</div>
+              <div class="text-xs text-emerald-400">Full Access</div>
+            </div>
+          </div>
+          <button onclick="logout()" class="text-zinc-400 hover:text-red-400 transition">
+            <i class="fa-solid fa-right-from-bracket text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area (same as previous version) -->
+    <div class="ml-72 min-h-screen">
+      <!-- Top Bar -->
+      <div class="bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800 sticky top-0 z-40 px-8 py-5 flex items-center justify-between">
+        <h2 id="page-title" class="text-3xl font-bold tracking-tighter">Overview</h2>
+        
+        <div class="flex items-center gap-6">
+          <button onclick="showNotifications()" class="relative text-2xl">
+            <i class="fa-solid fa-bell"></i>
+            <span id="notification-count" class="absolute -top-1 -right-1 bg-red-500 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">3</span>
+          </button>
+          <button onclick="exportData()" 
+            class="bg-gradient-to-r from-purple-600 to-violet-600 px-6 py-3 rounded-2xl font-semibold flex items-center gap-2 hover:brightness-110">
+            <i class="fa-solid fa-download"></i> Export
+          </button>
+          <div class="flex items-center gap-3">
+            <div class="text-right text-sm">
+              <div class="font-medium">Lil</div>
+              <div class="text-zinc-400 text-xs">Owner</div>
+            </div>
+            <div class="w-9 h-9 bg-purple-600 rounded-2xl flex items-center justify-center text-2xl">👑</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Area (kept the same as your previous dashboard) -->
+      <div class="p-8" id="content-area">
+        <!-- All your previous screens (dashboard, applications, forms, etc.) go here -->
+        <!-- For brevity, I'm including only the structure. Paste your full dashboard content from the previous message inside this div if you want. -->
+        <div id="screen-dashboard">
+          <p class="text-2xl text-zinc-300">Welcome back, Lil 👑</p>
+          <p class="text-zinc-400">Your admin dashboard is ready.</p>
+          <!-- Add the rest of your overview, stats, charts etc. here from the previous version -->
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    let currentTab = 0;
-    const correctOwnerPassword = "owner123"; // ← CHANGE THIS TO YOUR SECURE PASSWORD
+    // ================== LOGIN SYSTEM ==================
+    const DEFAULT_USERNAME = "owner";
+    const DEFAULT_PASSWORD = "pronto123";   // ← CHANGE THIS TO YOUR DESIRED PASSWORD
 
-    function switchTab(tab) {
-      currentTab = tab;
-      
-      document.getElementById('tab0').classList.toggle('bg-zinc-800', tab === 0);
-      document.getElementById('tab1').classList.toggle('bg-zinc-800', tab === 1);
-      
-      const dynamic = document.getElementById('dynamicContent');
-      const subject = document.getElementById('subject');
-
-      if (tab === 0) { // Creator
-        subject.value = "NEW CREATOR APPLICATION";
-        dynamic.innerHTML = `
-          <div>
-            <label class="text-zinc-400 text-sm font-medium mb-2 block">Content Niche <span class="text-red-500">*</span></label>
-            <select name="niche" required class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none">
-              <option value="">Select your content niche...</option>
-              <option value="Gaming">Gaming</option>
-              <option value="Lifestyle">Lifestyle / Vlogs</option>
-              <option value="Tech">Tech & Reviews</option>
-              <option value="Fashion">Fashion / Beauty</option>
-              <option value="Comedy">Comedy / Skits</option>
-              <option value="Music">Music</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="text-zinc-400 text-sm font-medium mb-2 block">Average Views <span class="text-red-500">*</span></label>
-            <input type="text" name="avg_views" placeholder="e.g. 200K per video" required
-              class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none">
-          </div>
-
-          <div>
-            <label class="text-zinc-400 text-sm font-medium mb-2 block">Why do you want to join Pronto Studio? <span class="text-red-500">*</span></label>
-            <textarea name="message" rows="4" required placeholder="Be honest and detailed..."
-              class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none"></textarea>
-          </div>
-        `;
-      } else { // Staff
-        subject.value = "NEW STAFF APPLICATION";
-        dynamic.innerHTML = `
-          <div>
-            <label class="text-zinc-400 text-sm font-medium mb-2 block">Discord Username <span class="text-red-500">*</span></label>
-            <input type="text" name="discord" placeholder="@yourusername" required
-              class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none">
-          </div>
-
-          <div>
-            <label class="text-zinc-400 text-sm font-medium mb-2 block">Role you're applying for & Experience <span class="text-red-500">*</span></label>
-            <textarea name="experience" rows="5" required placeholder="What role? Moderator, Editor, Manager, etc. + your experience..."
-              class="input w-full bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-6 py-5 text-lg outline-none"></textarea>
-          </div>
-        `;
-      }
-    }
-
-    function showOwnerPanel() {
-      document.getElementById('ownerModal').classList.remove('hidden');
-      document.getElementById('ownerPass').focus();
-    }
-
-    function hideOwnerPanel() {
-      document.getElementById('ownerModal').classList.add('hidden');
-      document.getElementById('ownerError').classList.add('hidden');
-    }
-
-    function checkOwnerPassword() {
-      const pass = document.getElementById('ownerPass').value;
-      if (pass === correctOwnerPassword) {
-        hideOwnerPanel();
-        alert("✅ Welcome Owner! Staff management panel would open here.\n\n(You can later replace this alert with a real dashboard)");
-        // Future: window.location = "staff-panel.html";
+    function checkLoginStatus() {
+      const isLoggedIn = localStorage.getItem("prontoAdminLoggedIn") === "true";
+      if (isLoggedIn) {
+        document.getElementById("login-screen").classList.add("hidden");
+        document.getElementById("dashboard-screen").classList.remove("hidden");
+        initDashboard();
       } else {
-        document.getElementById('ownerError').classList.remove('hidden');
+        document.getElementById("login-screen").classList.remove("hidden");
+        document.getElementById("dashboard-screen").classList.add("hidden");
       }
     }
 
-    // Initialize
+    function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const remember = document.getElementById("remember-me").checked;
+
+      if (username === DEFAULT_USERNAME && password === DEFAULT_PASSWORD) {
+        localStorage.setItem("prontoAdminLoggedIn", "true");
+        if (remember) {
+          localStorage.setItem("prontoRememberMe", "true");
+        }
+        document.getElementById("login-screen").classList.add("hidden");
+        document.getElementById("dashboard-screen").classList.remove("hidden");
+        initDashboard();
+        logAction("Owner logged in successfully");
+      } else {
+        const errorEl = document.getElementById("login-error");
+        errorEl.classList.remove("hidden");
+        setTimeout(() => errorEl.classList.add("hidden"), 3000);
+      }
+    }
+
+    function logout() {
+      if (confirm("Log out of Pronto Studio Admin?")) {
+        localStorage.removeItem("prontoAdminLoggedIn");
+        localStorage.removeItem("prontoRememberMe");
+        window.location.reload();
+      }
+    }
+
+    // Auto login if "Remember me" was used
     window.onload = () => {
-      switchTab(0);
+      // If remember me is active, we consider them logged in
+      if (localStorage.getItem("prontoRememberMe") === "true") {
+        localStorage.setItem("prontoAdminLoggedIn", "true");
+      }
+      checkLoginStatus();
     };
+
+    // ================== DASHBOARD INIT (placeholder) ==================
+    function initDashboard() {
+      console.log("%c✅ Pronto Studio Admin Dashboard loaded with persistent login", "color:#a855f7; font-size:14px");
+      // Call your existing render functions here (renderRecent, renderCharts, etc.)
+      // Paste the rest of your dashboard JavaScript from the previous version below this line
+    }
+
+    // Dummy logAction (add your real one from before)
+    function logAction(msg) {
+      console.log("[AUDIT]", msg);
+    }
+
+    // Add the rest of your previous dashboard code (renderRecent, charts, modals, etc.) here
+    // You can copy everything after the <script> tag from the previous full dashboard version.
   </script>
 </body>
 </html>

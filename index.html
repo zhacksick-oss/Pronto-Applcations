@@ -3,160 +3,173 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pronto Studio</title>
+  <title>Pronto Studio • Apply Now</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    body { font-family: 'Inter', system-ui, sans-serif; }
-    .bg-pronto {
-      background-image: linear-gradient(rgba(10,10,20,0.85), rgba(10,10,20,0.95)), 
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .hero-bg {
+      background-image: linear-gradient(rgba(10, 10, 20, 0.82), rgba(10, 10, 20, 0.90)), 
                         url('pronto-bg.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
     }
-    .neon { text-shadow: 0 0 30px rgb(168 85 247); }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgb(168 85 247 / 0.2);
+    }
   </style>
 </head>
-<body class="bg-zinc-950 text-white">
+<body class="hero-bg min-h-screen text-white">
 
-  <!-- PUBLIC LANDING PAGE -->
-  <div id="public-page" class="min-h-screen bg-pronto flex items-center justify-center">
-    <div class="text-center max-w-2xl mx-auto px-6">
-      <div class="flex justify-center mb-8">
-        <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-cyan-400 rounded-3xl flex items-center justify-center text-7xl shadow-2xl">⚡</div>
+  <div class="min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-2xl w-full">
+      
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <div class="flex justify-center mb-6">
+          <div class="w-24 h-24 bg-gradient-to-br from-purple-600 via-violet-500 to-fuchsia-500 rounded-3xl flex items-center justify-center text-7xl shadow-2xl">
+            ⚡
+          </div>
+        </div>
+        <h1 class="text-6xl font-bold tracking-tighter mb-3">PRONTO STUDIO</h1>
+        <p class="text-2xl text-zinc-300">Creator & Staff Applications</p>
       </div>
-      <h1 class="text-7xl font-bold tracking-tighter neon mb-4">PRONTO STUDIO</h1>
-      <p class="text-2xl text-zinc-300 mb-12">Creator & Staff Applications Open</p>
 
-      <div class="flex flex-col sm:flex-row gap-6 justify-center">
-        <button onclick="startApplication(0)" 
-          class="bg-white text-black hover:bg-zinc-100 transition px-10 py-6 rounded-3xl text-2xl font-bold flex items-center justify-center gap-4">
-          <i class="fa-solid fa-video"></i>
-          Creator Application
-        </button>
+      <!-- Main Cards -->
+      <div class="grid md:grid-cols-2 gap-8">
         
-        <button onclick="startApplication(1)" 
-          class="bg-zinc-900 border-2 border-purple-500 hover:border-purple-400 transition px-10 py-6 rounded-3xl text-2xl font-bold flex items-center justify-center gap-4">
-          <i class="fa-solid fa-shield-halved"></i>
-          Staff Application
-        </button>
+        <!-- Creator Application Card -->
+        <div onclick="startCreatorApplication()" 
+             class="card bg-zinc-900/80 backdrop-blur-xl border border-purple-500/30 rounded-3xl p-10 cursor-pointer hover:border-purple-500">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-14 h-14 bg-purple-600 rounded-2xl flex items-center justify-center text-4xl">📸</div>
+            <div>
+              <h2 class="text-3xl font-bold">Content Creator</h2>
+              <p class="text-purple-400">Join as a Creator</p>
+            </div>
+          </div>
+          
+          <ul class="space-y-4 text-zinc-300 mb-10">
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Showcase your content</li>
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Grow with the team</li>
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Get featured</li>
+          </ul>
+          
+          <button class="w-full bg-white text-black py-5 rounded-2xl font-semibold text-lg">
+            Apply as Creator
+          </button>
+        </div>
+
+        <!-- Staff Application Card -->
+        <div onclick="startStaffApplication()" 
+             class="card bg-zinc-900/80 backdrop-blur-xl border border-cyan-500/30 rounded-3xl p-10 cursor-pointer hover:border-cyan-500">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-14 h-14 bg-cyan-600 rounded-2xl flex items-center justify-center text-4xl">🛡️</div>
+            <div>
+              <h2 class="text-3xl font-bold">Staff / Team</h2>
+              <p class="text-cyan-400">Join the Team</p>
+            </div>
+          </div>
+          
+          <ul class="space-y-4 text-zinc-300 mb-10">
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Moderator, Editor, Manager</li>
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Help run the studio</li>
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Be part of the crew</li>
+          </ul>
+          
+          <button class="w-full bg-white text-black py-5 rounded-2xl font-semibold text-lg">
+            Apply as Staff
+          </button>
+        </div>
+
       </div>
 
-      <button onclick="showOwnerLogin()" 
-        class="mt-16 text-purple-400 hover:text-purple-300 flex items-center gap-2 mx-auto text-sm">
-        <i class="fa-solid fa-lock"></i>
-        Owner / Admin Access
-      </button>
-    </div>
-  </div>
-
-  <!-- OWNER LOGIN MODAL -->
-  <div id="owner-login-modal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl p-10 w-full max-w-sm">
-      <h2 class="text-3xl font-bold text-center mb-8">Owner Login</h2>
-      <input id="owner-username" type="text" placeholder="Username" value="owner"
-        class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 mb-4">
-      <input id="owner-password" type="password" placeholder="Password" value="pronto123"
-        class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 mb-6">
-      <button onclick="ownerLogin()" 
-        class="w-full bg-gradient-to-r from-purple-600 to-violet-600 py-5 rounded-3xl font-bold text-xl">
-        Login to Dashboard
-      </button>
-      <p id="owner-error" class="text-red-500 text-center mt-4 hidden">Wrong credentials</p>
-    </div>
-  </div>
-
-  <!-- ADMIN DASHBOARD (hidden until login) -->
-  <div id="admin-dashboard" class="hidden">
-    <!-- Your full dashboard code from before goes here (sidebar, overview, applications, etc.) -->
-    <!-- For space reasons, I'm showing only the structure. Paste your full dashboard HTML inside this div if needed. -->
-    <div class="p-8 text-center">
-      <h1 class="text-5xl font-bold mb-4">Welcome back, Lil 👑</h1>
-      <p class="text-zinc-400">Admin Dashboard is ready. New applications will appear here and in Discord.</p>
-      <button onclick="logoutAdmin()" class="mt-10 px-8 py-4 bg-red-600 rounded-2xl">Logout</button>
+      <div class="text-center mt-12">
+        <p class="text-zinc-400 text-sm">
+          All applications are sent directly to the Pronto Studio team on Discord
+        </p>
+      </div>
     </div>
   </div>
 
   <script>
     const WEBHOOK_URL = "https://discord.com/api/webhooks/1477127903736234157/mALJT5iM6LOD2lcpXyoWIQDha9FNbL7HjgL0AP8OExi19wNAQWcZ3yoFPd2eW6V_aO1Q";
 
-    // ================== PUBLIC APPLICATION ==================
-    function startApplication(type) {
-      const isCreator = type === 0;
-      
-      const name = prompt(isCreator ? "Your Full Name:" : "Your Full Name:");
-      if (!name) return;
-      
-      const email = prompt("Your Email Address:");
-      if (!email) return;
-
-      let extraInfo = "";
-      if (isCreator) {
-        extraInfo = prompt("Content Niche (e.g. Gaming, Comedy):") || "Not specified";
-      } else {
-        extraInfo = prompt("Role you're applying for (Moderator, Editor, etc.):") || "Not specified";
-      }
-
-      // Send to Discord Webhook
-      const embed = {
-        title: isCreator ? "🎥 New Creator Application" : "🛡️ New Staff Application",
-        color: isCreator ? 0xa855f7 : 0x22d3ee,
-        fields: [
-          { name: "Name", value: name, inline: true },
-          { name: "Email", value: email, inline: true },
-          { name: isCreator ? "Niche" : "Role", value: extraInfo, inline: true },
-          { name: "Submitted", value: new Date().toLocaleString(), inline: false }
-        ],
-        footer: { text: "Pronto Studio Applications" }
+    async function sendApplication(title, color, fields) {
+      const payload = {
+        username: "Pronto Studio Bot",
+        embeds: [{
+          title: title,
+          color: color,
+          fields: fields,
+          timestamp: new Date().toISOString(),
+          footer: { text: "Pronto Studio Applications" }
+        }]
       };
 
-      fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: "Pronto Bot",
-          embeds: [embed]
-        })
-      }).then(() => {
-        alert(`✅ Application submitted successfully!\n\nIt has been sent to the Pronto Studio team on Discord.`);
-      }).catch(() => {
-        alert("✅ Application received (Discord notification failed - still saved internally)");
-      });
-    }
-
-    // ================== OWNER LOGIN ==================
-    function showOwnerLogin() {
-      document.getElementById("owner-login-modal").classList.remove("hidden");
-    }
-
-    function ownerLogin() {
-      const user = document.getElementById("owner-username").value.trim();
-      const pass = document.getElementById("owner-password").value.trim();
-
-      if (user === "owner" && pass === "pronto123") {
-        document.getElementById("owner-login-modal").classList.add("hidden");
-        document.getElementById("public-page").classList.add("hidden");
-        document.getElementById("admin-dashboard").classList.remove("hidden");
-        alert("👑 Welcome Owner! Dashboard loaded.");
-      } else {
-        document.getElementById("owner-error").classList.remove("hidden");
-        setTimeout(() => document.getElementById("owner-error").classList.add("hidden"), 2500);
+      try {
+        await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.log("Notification sent to Discord");
       }
     }
 
-    function logoutAdmin() {
-      if (confirm("Logout from admin dashboard?")) {
-        document.getElementById("admin-dashboard").classList.add("hidden");
-        document.getElementById("public-page").classList.remove("hidden");
-      }
+    function startCreatorApplication() {
+      const name = prompt("Full Name:");
+      if (!name) return;
+
+      const email = prompt("Email Address:");
+      if (!email) return;
+
+      const niche = prompt("Content Niche (Gaming, Comedy, Tech, etc.):");
+      if (!niche) return;
+
+      const why = prompt("Why do you want to join Pronto Studio? (short answer)");
+
+      const fields = [
+        { name: "👤 Name", value: name, inline: true },
+        { name: "📧 Email", value: email, inline: true },
+        { name: "🎥 Niche", value: niche, inline: true },
+        { name: "💬 Why Join?", value: why || "No message", inline: false }
+      ];
+
+      sendApplication("🎥 New Creator Application", 0xa855f7, fields);
+      alert("✅ Your Creator Application has been sent successfully!\nThe team will review it soon.");
     }
 
-    // Auto-check background image
-    window.onload = () => {
-      console.log("%cPronto Studio loaded - Background should show your Roblox screenshot", "color:#a855f7");
-      // You can add more dashboard code here later
-    };
+    function startStaffApplication() {
+      const name = prompt("Full Name:");
+      if (!name) return;
+
+      const email = prompt("Email Address:");
+      if (!email) return;
+
+      const role = prompt("What role are you applying for? (Moderator, Editor, Manager, etc.)");
+      if (!role) return;
+
+      const experience = prompt("Tell us about your experience (short answer):");
+
+      const fields = [
+        { name: "👤 Name", value: name, inline: true },
+        { name: "📧 Email", value: email, inline: true },
+        { name: "🛡️ Role", value: role, inline: true },
+        { name: "📝 Experience", value: experience || "No details", inline: false }
+      ];
+
+      sendApplication("🛡️ New Staff Application", 0x22d3ee, fields);
+      alert("✅ Your Staff Application has been sent successfully!\nThe team will review it soon.");
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTENT CREW • Join Us</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
+
+  <div class="max-w-4xl mx-auto px-6 py-24 text-center">
+    <h1 class="text-6xl font-bold mb-4">JOIN THE CREW</h1>
+    <p class="text-xl text-zinc-400 mb-12">Staff & Content Creator Applications</p>
+
+    <!-- Staff Form -->
+    <div class="bg-zinc-900 rounded-3xl p-10 mb-10">
+      <h2 class="text-3xl font-semibold mb-8">Staff Application</h2>
+      <form action="https://formsubmit.co/YOUR_EMAIL_HERE@gmail.com" method="POST" class="space-y-6">
+        <input type="hidden" name="type" value="Staff">
+        <input type="hidden" name="_subject" value="New Staff Application">
+        
+        <div class="grid grid-cols-2 gap-6">
+          <input type="text" name="name" placeholder="Full Name" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
+          <input type="text" name="discord" placeholder="Discord Username" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
+        </div>
+        
+        <input type="email" name="email" placeholder="Email Address" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
+        
+        <textarea name="experience" rows="4" placeholder="Previous experience..." required class="bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 w-full"></textarea>
+        
+        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 py-5 rounded-2xl font-bold text-lg">
+          Submit Staff Application
+        </button>
+      </form>
+    </div>
+
+    <!-- Content Creator Form -->
+    <div class="bg-zinc-900 rounded-3xl p-10">
+      <h2 class="text-3xl font-semibold mb-8">Content Creator Application</h2>
+      <form action="https://formsubmit.co/YOUR_EMAIL_HERE@gmail.com" method="POST" class="space-y-6">
+        <input type="hidden" name="type" value="Content Creator">
+        <input type="hidden" name="_subject" value="New Content Creator Application">
+        
+        <div class="grid grid-cols-2 gap-6">
+          <input type="text" name="name" placeholder="Full Name" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
+          <input type="text" name="tiktok" placeholder="@tiktokusername" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
+        </div>
+        
+        <input type="text" name="avg_views" placeholder="Average Views (e.g. 200K)" required class="bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 w-full">
+        
+        <textarea name="why" rows="4" placeholder="Why do you want to join?..." required class="bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 w-full"></textarea>
+        
+        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 py-5 rounded-2xl font-bold text-lg">
+          Submit Content Application
+        </button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

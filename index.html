@@ -158,36 +158,39 @@
     }
 
     async function sendToDiscord(title, color, fields) {
+      const payload = {
+        content: "@everyone",   // Pink @everyone ping
+        username: "Pronto Studio Bot",
+        embeds: [{
+          title: title,
+          color: color,           // Pink for Creator, Cyan for Staff
+          fields: fields,
+          timestamp: new Date().toISOString()
+        }]
+      };
+
       try {
         await fetch(WEBHOOK_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: "Pronto Bot",
-            embeds: [{ 
-              title: title, 
-              color: color, 
-              fields: fields,
-              timestamp: new Date().toISOString()
-            }]
-          })
+          body: JSON.stringify(payload)
         });
       } catch (e) {
-        console.log("Webhook sent");
+        console.log("Message sent to Discord");
       }
     }
 
     function submitCreator(e) {
       e.preventDefault();
       const fields = [
-        { name: "Name", value: document.getElementById("c-name").value || "N/A" },
-        { name: "Email", value: document.getElementById("c-email").value || "N/A" },
+        { name: "Name", value: document.getElementById("c-name").value || "N/A", inline: true },
+        { name: "Email", value: document.getElementById("c-email").value || "N/A", inline: true },
         { name: "Social Media", value: document.getElementById("c-social").value || "None" },
         { name: "Niche", value: document.getElementById("c-niche").value || "Not selected" },
         { name: "Why Join", value: document.getElementById("c-why").value || "No message" }
       ];
 
-      sendToDiscord("🎥 New Creator Application", 0xa855f7, fields);
+      sendToDiscord("🎥 New Creator Application", 0xe879f9, fields); // Pink color
       alert("✅ Creator Application submitted successfully!");
       backToHome();
     }
@@ -195,13 +198,13 @@
     function submitStaff(e) {
       e.preventDefault();
       const fields = [
-        { name: "Name", value: document.getElementById("s-name").value || "N/A" },
-        { name: "Email", value: document.getElementById("s-email").value || "N/A" },
+        { name: "Name", value: document.getElementById("s-name").value || "N/A", inline: true },
+        { name: "Email", value: document.getElementById("s-email").value || "N/A", inline: true },
         { name: "Role", value: document.getElementById("s-role").value || "Not selected" },
         { name: "Why Hire", value: document.getElementById("s-why").value || "No message" }
       ];
 
-      sendToDiscord("🛡️ New Staff Application", 0x22d3ee, fields);
+      sendToDiscord("🛡️ New Staff Application", 0x67e8f9, fields); // Cyan color
       alert("✅ Staff Application submitted successfully!");
       backToHome();
     }

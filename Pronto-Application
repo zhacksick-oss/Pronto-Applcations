@@ -1,1 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pronto Studio • Apply</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .hero-bg {
+      background-image: linear-gradient(rgba(10,10,20,0.85), rgba(10,10,20,0.92)), url('https://i.imgur.com/YOUR-IMAGE-LINK-HERE.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="hero-bg min-h-screen text-white">
 
+  <div class="min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-4xl w-full">
+
+      <div class="text-center mb-12">
+        <div class="flex justify-center mb-6">
+          <div class="w-24 h-24 bg-gradient-to-br from-purple-600 to-violet-500 rounded-3xl flex items-center justify-center text-7xl shadow-2xl">⚡</div>
+        </div>
+        <h1 class="text-6xl font-bold tracking-tighter">PRONTO STUDIO</h1>
+        <p class="text-2xl text-zinc-300 mt-3">Creator & Staff Applications</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex justify-center mb-10 bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-1.5 w-fit mx-auto">
+        <button onclick="switchTab(0)" id="tab0" 
+          class="px-12 py-4 rounded-3xl font-semibold text-lg transition-all">Creator Application</button>
+        <button onclick="switchTab(1)" id="tab1" 
+          class="px-12 py-4 rounded-3xl font-semibold text-lg transition-all">Staff Application</button>
+      </div>
+
+      <!-- Creator Form -->
+      <div id="creator-form" class="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-10 border border-purple-500/30">
+        <form onsubmit="submitCreator(event)" class="space-y-8">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="text-zinc-400 text-sm mb-2 block">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="c-name" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+            </div>
+            <div>
+              <label class="text-zinc-400 text-sm mb-2 block">Email <span class="text-red-500">*</span></label>
+              <input type="email" id="c-email" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="text-zinc-400 text-sm mb-2 block">Social Media Links</label>
+            <input type="text" id="c-social" placeholder="Instagram, TikTok, YouTube, X (separate with commas)" 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="text-zinc-400 text-sm mb-2 block">Portfolio / Website</label>
+              <input type="url" id="c-portfolio" placeholder="https://" 
+                class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+            </div>
+            <div>
+              <label class="text-zinc-400 text-sm mb-2 block">Content Niche <span class="text-red-500">*</span></label>
+              <select id="c-niche" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+                <option value="">Choose niche...</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Comedy">Comedy / Skits</option>
+                <option value="Tech">Tech</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Music">Music</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-zinc-400 text-sm mb-2 block">Audience Size</label>
+            <input type="text" id="c-audience" placeholder="e.g. TikTok 150K, YouTube 80K" 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500">
+          </div>
+
+          <div>
+            <label class="text-zinc-400 text-sm mb-2 block">Why do you want to join Pronto Studio? <span class="text-red-500">*</span></label>
+            <textarea id="c-why" rows="6" required placeholder="Tell us why you're a good fit..." 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-6 bg-gradient-to-r from-purple-600 to-violet-600 rounded-3xl font-bold text-xl">
+            Submit Creator Application
+          </button>
+        </form>
+      </div>
+
+      <!-- Staff Form -->
+      <div id="staff-form" class="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-10 border border-cyan-500/30 hidden">
+        <form onsubmit="submitStaff(event)" class="space-y-8">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="text-zinc-400 text-sm mb-2 block">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="s-name" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500">
+            </div>
+            <div>
+              <label class="text-zinc-400 text-sm mb-2 block">Email <span class="text-red-500">*</span></label>
+              <input type="email" id="s-email" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="text-zinc-400 text-sm mb-2 block">Role Applying For <span class="text-red-500">*</span></label>
+            <select id="s-role" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500">
+              <option value="">Select role...</option>
+              <option value="Moderator">Moderator</option>
+              <option value="Editor">Editor</option>
+              <option value="Reviewer">Content Reviewer</option>
+              <option value="Manager">Manager</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-zinc-400 text-sm mb-2 block">Experience & Why we should hire you <span class="text-red-500">*</span></label>
+            <textarea id="s-why" rows="8" required placeholder="Describe your experience and why you're a great fit..." 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-6 bg-gradient-to-r from-cyan-600 to-teal-600 rounded-3xl font-bold text-xl">
+            Submit Staff Application
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const WEBHOOK = "https://discord.com/api/webhooks/1477127903736234157/mALJT5iM6LOD2lcpXyoWIQDha9FNbL7HjgL0AP8OExi19wNAQWcZ3yoFPd2eW6V_aO1Q";
+
+    function switchTab(n) {
+      document.getElementById('creator-form').classList.toggle('hidden', n !== 0);
+      document.getElementById('staff-form').classList.toggle('hidden', n !== 1);
+      document.getElementById('tab0').classList.toggle('bg-zinc-800', n === 0);
+      document.getElementById('tab1').classList.toggle('bg-zinc-800', n === 1);
+    }
+
+    async function sendWebhook(title, color, fields) {
+      try {
+        await fetch(WEBHOOK, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            username: "Pronto Bot",
+            embeds: [{ title, color, fields, timestamp: new Date().toISOString() }]
+          })
+        });
+      } catch(e) {}
+    }
+
+    function submitCreator(e) {
+      e.preventDefault();
+      const fields = [
+        {name: "Name", value: document.getElementById("c-name").value, inline: true},
+        {name: "Email", value: document.getElementById("c-email").value, inline: true},
+        {name: "Social Links", value: document.getElementById("c-social") ? document.getElementById("c-social").value || "None" : "None"},
+        {name: "Niche", value: document.getElementById("c-niche").value},
+        {name: "Why Join?", value: document.getElementById("c-why").value}
+      ];
+      sendWebhook("🎥 New Creator Application", 0xa855f7, fields);
+      alert("✅ Application sent! The team will review it soon.");
+      e.target.reset();
+    }
+
+    function submitStaff(e) {
+      e.preventDefault();
+      const fields = [
+        {name: "Name", value: document.getElementById("s-name").value, inline: true},
+        {name: "Email", value: document.getElementById("s-email").value, inline: true},
+        {name: "Role", value: document.getElementById("s-role").value},
+        {name: "Why Hire You?", value: document.getElementById("s-why").value}
+      ];
+      sendWebhook("🛡️ New Staff Application", 0x22d3ee, fields);
+      alert("✅ Application sent! The team will review it soon.");
+      e.target.reset();
+    }
+
+    window.onload = () => switchTab(0);
+  </script>
+</body>
+</html>
+
+
+url('https://i.imgur.com/https://media.discordapp.net/attachments/1481675942693965874/1489421947686228059/4189768043_11177482306_1774998272845.png?ex=69e0d688&is=69df8508&hm=bf928f0dd4f2bbec9f58f913fc0c89fe4d37d273cd7b2a24cd47b40529a81374&=&format=webp&quality=lossless&width=1086&height=571')

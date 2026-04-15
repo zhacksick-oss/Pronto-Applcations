@@ -19,84 +19,89 @@
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
 
-  <!-- Top Bar -->
-  <nav class="border-b border-zinc-800 bg-zinc-900">
+  <!-- Top Navigation -->
+  <nav class="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-50">
     <div class="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center text-2xl">⚡</div>
         <span class="font-bold text-2xl tracking-tight">Pronto Studio</span>
       </div>
+      <div class="text-lg font-medium text-zinc-400">Applications</div>
     </div>
   </nav>
 
-  <!-- Home Page -->
+  <!-- HOME PAGE -->
   <div id="home-page" class="max-w-4xl mx-auto px-6 py-16">
-    <div class="text-center mb-16">
-      <h1 class="text-5xl font-bold tracking-tighter mb-4">Join Pronto Studio</h1>
-      <p class="text-xl text-zinc-400">Choose the type of application you want to submit</p>
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-bold tracking-tighter mb-4">Join the Team</h1>
+      <p class="text-zinc-400 text-xl">Choose which application you want to submit</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
       
-      <!-- Creator Card -->
-      <div onclick="showCreatorForm()" 
-        class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-violet-500 rounded-3xl p-10 cursor-pointer transition-all">
-        <div class="w-16 h-16 bg-violet-600/20 rounded-2xl flex items-center justify-center text-5xl mb-6">📸</div>
-        <h2 class="text-3xl font-bold mb-2">Creator Application</h2>
-        <p class="text-zinc-400">Apply to become a content creator with Pronto Studio</p>
-        <button class="mt-8 w-full py-4 bg-violet-600 rounded-2xl font-semibold">Apply as Creator</button>
+      <!-- Creator Option -->
+      <div onclick="showCreator()" 
+        class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-violet-500 rounded-3xl p-12 cursor-pointer transition-all group">
+        <div class="text-violet-500 text-6xl mb-6">📸</div>
+        <h2 class="text-3xl font-bold mb-3 group-hover:text-violet-400 transition">Creator Application</h2>
+        <p class="text-zinc-400">Apply to become a content creator and grow with Pronto Studio</p>
+        <div class="mt-8 text-violet-400 font-medium flex items-center gap-2">
+          Start Application <i class="fa-solid fa-arrow-right"></i>
+        </div>
       </div>
 
-      <!-- Staff Card -->
-      <div onclick="showStaffForm()" 
-        class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-cyan-500 rounded-3xl p-10 cursor-pointer transition-all">
-        <div class="w-16 h-16 bg-cyan-600/20 rounded-2xl flex items-center justify-center text-5xl mb-6">🛡️</div>
-        <h2 class="text-3xl font-bold mb-2">Staff Application</h2>
-        <p class="text-zinc-400">Join the team as Moderator, Editor, or other roles</p>
-        <button class="mt-8 w-full py-4 bg-cyan-600 rounded-2xl font-semibold">Apply as Staff</button>
+      <!-- Staff Option -->
+      <div onclick="showStaff()" 
+        class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-cyan-500 rounded-3xl p-12 cursor-pointer transition-all group">
+        <div class="text-cyan-500 text-6xl mb-6">🛡️</div>
+        <h2 class="text-3xl font-bold mb-3 group-hover:text-cyan-400 transition">Staff Application</h2>
+        <p class="text-zinc-400">Join the team as Moderator, Editor, Reviewer or other roles</p>
+        <div class="mt-8 text-cyan-400 font-medium flex items-center gap-2">
+          Start Application <i class="fa-solid fa-arrow-right"></i>
+        </div>
       </div>
+
     </div>
   </div>
 
-  <!-- Creator Application Form -->
-  <div id="creator-form" class="hidden max-w-3xl mx-auto px-6 py-10">
-    <div class="flex items-center justify-between mb-8">
-      <h1 class="text-3xl font-bold">Creator Application Form</h1>
+  <!-- CREATOR FORM -->
+  <div id="creator-page" class="hidden max-w-3xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-10">
+      <h1 class="text-4xl font-bold">Creator Application Form</h1>
       <button onclick="backToHome()" class="text-zinc-400 hover:text-white flex items-center gap-2">
-        <i class="fa-solid fa-arrow-left"></i> Back
+        ← Back
       </button>
     </div>
-    <p class="text-zinc-400 mb-8">All fields marked with * are required</p>
 
     <div class="bg-zinc-900 rounded-3xl p-10">
       <form onsubmit="submitCreator(event)" class="space-y-8">
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Full Name <span class="text-red-500">*</span></label>
           <input type="text" id="c-name" required placeholder="Your full name" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg">
         </div>
 
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Email Address <span class="text-red-500">*</span></label>
           <input type="email" id="c-email" required placeholder="your@email.com" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg">
         </div>
 
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Social Media Links</label>
           <input type="text" id="c-social" placeholder="Instagram, YouTube, TikTok, Twitter" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg">
         </div>
 
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Portfolio / Website URL</label>
           <input type="url" id="c-portfolio" placeholder="https://yourportfolio.com" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg">
         </div>
 
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Content Niche <span class="text-red-500">*</span></label>
-          <select id="c-niche" required class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+          <select id="c-niche" required class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg">
             <option value="">Select your niche</option>
             <option value="Gaming">Gaming</option>
             <option value="Comedy">Comedy</option>
@@ -108,9 +113,9 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-zinc-400 mb-2">Why do you want to join? <span class="text-red-500">*</span></label>
+          <label class="block text-sm font-medium text-zinc-400 mb-2">Why do you want to join Pronto Studio? <span class="text-red-500">*</span></label>
           <textarea id="c-why" rows="5" required placeholder="Tell us why you're a great fit..." 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5 outline-none"></textarea>
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5"></textarea>
         </div>
 
         <button type="submit" class="w-full bg-violet-600 hover:bg-violet-700 py-6 rounded-3xl font-semibold text-xl">
@@ -120,33 +125,32 @@
     </div>
   </div>
 
-  <!-- Staff Application Form -->
-  <div id="staff-form" class="hidden max-w-3xl mx-auto px-6 py-10">
-    <div class="flex items-center justify-between mb-8">
-      <h1 class="text-3xl font-bold">Staff Application Form</h1>
+  <!-- STAFF FORM -->
+  <div id="staff-page" class="hidden max-w-3xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-10">
+      <h1 class="text-4xl font-bold">Staff Application Form</h1>
       <button onclick="backToHome()" class="text-zinc-400 hover:text-white flex items-center gap-2">
-        <i class="fa-solid fa-arrow-left"></i> Back
+        ← Back
       </button>
     </div>
-    <p class="text-zinc-400 mb-8">All fields marked with * are required</p>
 
     <div class="bg-zinc-900 rounded-3xl p-10">
       <form onsubmit="submitStaff(event)" class="space-y-8">
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Full Name <span class="text-red-500">*</span></label>
           <input type="text" id="s-name" required placeholder="Your full name" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg">
         </div>
 
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Email Address <span class="text-red-500">*</span></label>
           <input type="email" id="s-email" required placeholder="your@email.com" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg">
         </div>
 
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Role Applying For <span class="text-red-500">*</span></label>
-          <select id="s-role" required class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+          <select id="s-role" required class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg">
             <option value="">Select role</option>
             <option value="Moderator">Moderator</option>
             <option value="Editor">Editor</option>
@@ -157,8 +161,8 @@
 
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Why should we hire you? <span class="text-red-500">*</span></label>
-          <textarea id="s-why" rows="6" required placeholder="Describe your experience and why you're a good fit..." 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5 outline-none"></textarea>
+          <textarea id="s-why" rows="6" required placeholder="Describe your experience..." 
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5"></textarea>
         </div>
 
         <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-700 py-6 rounded-3xl font-semibold text-xl">
@@ -171,28 +175,28 @@
   <script>
     const WEBHOOK_URL = "https://discord.com/api/webhooks/1477127903736234157/mALJT5iM6LOD2lcpXyoWIQDha9FNbL7HjgL0AP8OExi19wNAQWcZ3yoFPd2eW6V_aO1Q";
 
-    function showCreatorForm() {
+    function showCreator() {
       document.getElementById('home-page').classList.add('hidden');
-      document.getElementById('creator-form').classList.remove('hidden');
+      document.getElementById('creator-page').classList.remove('hidden');
     }
 
-    function showStaffForm() {
+    function showStaff() {
       document.getElementById('home-page').classList.add('hidden');
-      document.getElementById('staff-form').classList.remove('hidden');
+      document.getElementById('staff-page').classList.remove('hidden');
     }
 
     function backToHome() {
-      document.getElementById('creator-form').classList.add('hidden');
-      document.getElementById('staff-form').classList.add('hidden');
+      document.getElementById('creator-page').classList.add('hidden');
+      document.getElementById('staff-page').classList.add('hidden');
       document.getElementById('home-page').classList.remove('hidden');
     }
 
     function submitCreator(e) {
       e.preventDefault();
       const fields = [
-        { name: "Name", value: document.getElementById("c-name").value, inline: true },
-        { name: "Email", value: document.getElementById("c-email").value, inline: true },
-        { name: "Social", value: document.getElementById("c-social").value || "None" },
+        { name: "Name", value: document.getElementById("c-name").value },
+        { name: "Email", value: document.getElementById("c-email").value },
+        { name: "Social Media", value: document.getElementById("c-social").value || "None" },
         { name: "Portfolio", value: document.getElementById("c-portfolio").value || "None" },
         { name: "Niche", value: document.getElementById("c-niche").value },
         { name: "Why Join", value: document.getElementById("c-why").value }
@@ -201,18 +205,21 @@
       fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: "Pronto Bot", embeds: [{ title: "🎥 New Creator Application", color: 0xa855f7, fields }] })
+        body: JSON.stringify({
+          username: "Pronto Bot",
+          embeds: [{ title: "🎥 New Creator Application", color: 0xa855f7, fields: fields }]
+        })
       });
 
-      alert("✅ Creator Application submitted successfully!");
+      alert("✅ Creator Application sent successfully!");
       backToHome();
     }
 
     function submitStaff(e) {
       e.preventDefault();
       const fields = [
-        { name: "Name", value: document.getElementById("s-name").value, inline: true },
-        { name: "Email", value: document.getElementById("s-email").value, inline: true },
+        { name: "Name", value: document.getElementById("s-name").value },
+        { name: "Email", value: document.getElementById("s-email").value },
         { name: "Role", value: document.getElementById("s-role").value },
         { name: "Why Hire", value: document.getElementById("s-why").value }
       ];
@@ -220,10 +227,13 @@
       fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: "Pronto Bot", embeds: [{ title: "🛡️ New Staff Application", color: 0x22d3ee, fields }] })
+        body: JSON.stringify({
+          username: "Pronto Bot",
+          embeds: [{ title: "🛡️ New Staff Application", color: 0x22d3ee, fields: fields }]
+        })
       });
 
-      alert("✅ Staff Application submitted successfully!");
+      alert("✅ Staff Application sent successfully!");
       backToHome();
     }
   </script>

@@ -3,149 +3,185 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pronto Studio • Join Us</title>
+  <title>Pronto Studio • Creator Application</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
+    .input-field {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .input-field:focus {
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    }
   </style>
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
 
-  <!-- Landing -->
-  <div id="landing" class="min-h-screen flex items-center justify-center px-6">
-    <div class="max-w-md w-full text-center">
-      <div class="flex justify-center mb-6">
-        <div class="w-20 h-20 bg-gradient-to-br from-purple-600 to-violet-500 rounded-3xl flex items-center justify-center text-5xl shadow-xl">⚡</div>
+  <!-- Top Navigation -->
+  <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-lg sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 bg-gradient-to-br from-purple-600 to-violet-500 rounded-2xl flex items-center justify-center text-2xl shadow-lg">
+          ⚡
+        </div>
+        <div>
+          <span class="font-bold text-2xl tracking-tighter">Pronto Studio</span>
+        </div>
       </div>
-      <h1 class="text-5xl font-bold tracking-tighter mb-2">Pronto Studio</h1>
-      <p class="text-zinc-400 text-xl mb-10">Creator & Staff Applications</p>
+      <a href="#" onclick="logout()" class="flex items-center gap-2 text-zinc-400 hover:text-white transition">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span class="text-sm font-medium">Exit</span>
+      </a>
+    </div>
+  </nav>
 
-      <button onclick="showPasswordModal()" 
-        class="w-full bg-white text-black py-5 rounded-3xl text-lg font-semibold hover:bg-zinc-100 transition flex items-center justify-center gap-3">
-        <i class="fa-solid fa-lock"></i>
-        Access Application Forms
+  <div class="max-w-2xl mx-auto px-6 py-12">
+    
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-bold tracking-tighter mb-3">Creator Application Form</h1>
+      <p class="text-zinc-400 text-lg">All fields marked with <span class="text-red-500">*</span> are required</p>
+    </div>
+
+    <!-- Application Type Switch -->
+    <div class="flex bg-zinc-900 rounded-3xl p-1 mb-10 max-w-md mx-auto">
+      <button onclick="switchForm(0)" id="tab-creator"
+        class="flex-1 py-4 rounded-3xl font-semibold transition-all active-tab">
+        Creator Application
       </button>
-      <p class="text-zinc-500 mt-6 text-sm">Only authorized team members can apply</p>
+      <button onclick="switchForm(1)" id="tab-staff"
+        class="flex-1 py-4 rounded-3xl font-semibold transition-all">
+        Staff Application
+      </button>
     </div>
-  </div>
 
-  <!-- Password Modal -->
-  <div id="password-modal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl p-10 w-full max-w-sm">
-      <h2 class="text-2xl font-bold text-center mb-8">Enter Password</h2>
-      <input type="password" id="password-input" 
-        class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 text-lg focus:border-purple-500 outline-none"
-        placeholder="Password">
-      <div class="flex gap-4 mt-8">
-        <button onclick="hidePasswordModal()" 
-          class="flex-1 py-4 border border-zinc-700 rounded-3xl font-medium">Cancel</button>
-        <button onclick="checkPassword()" 
-          class="flex-1 py-4 bg-purple-600 hover:bg-purple-700 rounded-3xl font-medium">Unlock</button>
-      </div>
-      <p id="error-msg" class="text-red-500 text-center mt-4 hidden">Incorrect password</p>
-    </div>
-  </div>
+    <!-- Form -->
+    <div class="bg-zinc-900 rounded-3xl p-10 shadow-2xl border border-zinc-800">
+      <form id="application-form" action="https://formsubmit.co/YOUR_EMAIL@gmail.com" method="POST" class="space-y-8">
 
-  <!-- Main Application Page -->
-  <div id="main-app" class="hidden min-h-screen bg-zinc-950 py-12">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="flex justify-between items-center mb-12">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-violet-500 rounded-3xl flex items-center justify-center text-3xl">⚡</div>
-          <div>
-            <h1 class="text-4xl font-bold">Pronto Studio</h1>
-            <p class="text-zinc-400">Application Portal</p>
-          </div>
+        <!-- Hidden fields -->
+        <input type="hidden" name="_subject" id="form-subject" value="NEW CREATOR APPLICATION">
+        <input type="hidden" name="_template" value="table">
+
+        <!-- Full Name -->
+        <div>
+          <label class="block text-sm font-medium text-zinc-400 mb-2">Full Name <span class="text-red-500">*</span></label>
+          <input type="text" name="full_name" required
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none">
         </div>
-        <button onclick="logout()" class="text-zinc-400 hover:text-white flex items-center gap-2">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i> Exit
+
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium text-zinc-400 mb-2">Email Address <span class="text-red-500">*</span></label>
+          <input type="email" name="email" required
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none">
+        </div>
+
+        <!-- Dynamic Fields Container -->
+        <div id="dynamic-fields">
+          <!-- Filled by JavaScript -->
+        </div>
+
+        <!-- Social Media Links -->
+        <div>
+          <label class="block text-sm font-medium text-zinc-400 mb-2">Social Media Links</label>
+          <input type="text" name="social_links" placeholder="Instagram, YouTube, TikTok, Twitter (separate with commas)"
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none">
+        </div>
+
+        <!-- Portfolio -->
+        <div>
+          <label class="block text-sm font-medium text-zinc-400 mb-2">Portfolio / Website URL</label>
+          <input type="url" name="portfolio" placeholder="https://yourportfolio.com"
+            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-purple-600 via-violet-600 to-fuchsia-600 hover:brightness-110 transition py-6 rounded-3xl font-bold text-xl mt-6">
+          Submit Application
         </button>
-      </div>
-
-      <h2 class="text-4xl font-bold mb-10 text-center">Join The Crew</h2>
-
-      <div class="grid md:grid-cols-2 gap-10">
-        <!-- Staff Form -->
-        <div class="bg-zinc-900 rounded-3xl p-10">
-          <h3 class="text-2xl font-semibold mb-8">Staff Application</h3>
-          <form action="https://formsubmit.co/YOUR_EMAIL@gmail.com" method="POST" class="space-y-6">
-            <input type="hidden" name="_subject" value="NEW STAFF APPLICATION">
-            <input type="text" name="name" placeholder="Full Name *" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none">
-            <input type="email" name="email" placeholder="Email Address *" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none">
-            <input type="text" name="discord" placeholder="Discord Username" 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none">
-            <textarea name="experience" rows="5" placeholder="Previous experience & why you want to join *" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none"></textarea>
-            <button type="submit" 
-              class="w-full bg-gradient-to-r from-purple-600 to-violet-500 py-5 rounded-3xl font-bold text-lg hover:brightness-110 transition">
-              Submit Staff Application
-            </button>
-          </form>
-        </div>
-
-        <!-- Content Creator Form -->
-        <div class="bg-zinc-900 rounded-3xl p-10">
-          <h3 class="text-2xl font-semibold mb-8">Content Creator Application</h3>
-          <form action="https://formsubmit.co/YOUR_EMAIL@gmail.com" method="POST" class="space-y-6">
-            <input type="hidden" name="_subject" value="NEW CONTENT CREATOR APPLICATION">
-            <input type="text" name="name" placeholder="Full Name *" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none">
-            <input type="email" name="email" placeholder="Email Address *" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none">
-            <input type="text" name="tiktok" placeholder="TikTok Username @" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none">
-            <input type="text" name="avg_views" placeholder="Average Views (e.g. 150K)" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none">
-            <textarea name="niche" rows="3" placeholder="Content Niche *" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none"></textarea>
-            <textarea name="why" rows="4" placeholder="Why do you want to join Pronto Studio? *" required 
-              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-purple-500 outline-none"></textarea>
-            <button type="submit" 
-              class="w-full bg-gradient-to-r from-purple-600 to-violet-500 py-5 rounded-3xl font-bold text-lg hover:brightness-110 transition">
-              Submit Creator Application
-            </button>
-          </form>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 
   <script>
-    const correctPassword = "pronto123";   // ← CHANGE THIS TO YOUR OWN PASSWORD
+    let currentType = 0; // 0 = Creator, 1 = Staff
 
-    function showPasswordModal() {
-      document.getElementById('password-modal').classList.remove('hidden');
-      document.getElementById('password-input').focus();
-    }
+    function switchForm(type) {
+      currentType = type;
+      
+      // Update active tab styles
+      document.getElementById('tab-creator').classList.toggle('bg-zinc-800', type === 0);
+      document.getElementById('tab-creator').classList.toggle('text-white', type === 0);
+      document.getElementById('tab-staff').classList.toggle('bg-zinc-800', type === 1);
+      document.getElementById('tab-staff').classList.toggle('text-white', type === 1);
 
-    function hidePasswordModal() {
-      document.getElementById('password-modal').classList.add('hidden');
-      document.getElementById('error-msg').classList.add('hidden');
-    }
+      const dynamicFields = document.getElementById('dynamic-fields');
+      const subjectField = document.getElementById('form-subject');
 
-    function checkPassword() {
-      const input = document.getElementById('password-input').value;
-      if (input === correctPassword) {
-        hidePasswordModal();
-        document.getElementById('landing').classList.add('hidden');
-        document.getElementById('main-app').classList.remove('hidden');
-      } else {
-        document.getElementById('error-msg').classList.remove('hidden');
+      if (type === 0) { // Creator
+        subjectField.value = "NEW CREATOR APPLICATION";
+        dynamicFields.innerHTML = `
+          <div class="space-y-8">
+            <div>
+              <label class="block text-sm font-medium text-zinc-400 mb-2">Content Niche <span class="text-red-500">*</span></label>
+              <select name="niche" required class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none">
+                <option value="">Select your niche</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Tech">Tech / Reviews</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Music">Music</option>
+                <option value="Comedy">Comedy / Skits</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-zinc-400 mb-2">Average Views per Video <span class="text-red-500">*</span></label>
+              <input type="text" name="avg_views" placeholder="e.g. 150K" required
+                class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-zinc-400 mb-2">Why do you want to join Pronto Studio? <span class="text-red-500">*</span></label>
+              <textarea name="why_join" rows="4" required placeholder="Tell us why you're a great fit..."
+                class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none"></textarea>
+            </div>
+          </div>
+        `;
+      } else { // Staff
+        subjectField.value = "NEW STAFF APPLICATION";
+        dynamicFields.innerHTML = `
+          <div class="space-y-8">
+            <div>
+              <label class="block text-sm font-medium text-zinc-400 mb-2">Discord Username <span class="text-red-500">*</span></label>
+              <input type="text" name="discord" placeholder="@username" required
+                class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-zinc-400 mb-2">Previous Experience & Why you want to join <span class="text-red-500">*</span></label>
+              <textarea name="experience" rows="6" required placeholder="Tell us about your experience and what role you're applying for..."
+                class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg focus:border-purple-500 outline-none"></textarea>
+            </div>
+          </div>
+        `;
       }
     }
 
     function logout() {
-      document.getElementById('main-app').classList.add('hidden');
-      document.getElementById('landing').classList.remove('hidden');
-      document.getElementById('password-input').value = '';
+      if (confirm("Are you sure you want to exit?")) {
+        window.location.reload();
+      }
     }
 
-    document.getElementById('password-input').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') checkPassword();
-    });
+    // Initialize with Creator form
+    window.onload = () => {
+      switchForm(0);
+    };
   </script>
 </body>
 </html>

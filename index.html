@@ -3,114 +3,205 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pronto Studio • Apply Now</title>
+  <title>Pronto Studio • Applications</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-    }
+    body { font-family: 'Inter', system-ui, sans-serif; }
     .hero-bg {
-      background-image: linear-gradient(rgba(10, 10, 20, 0.82), rgba(10, 10, 20, 0.90)), 
-                        url('pronto-bg.png');
+      background-image: linear-gradient(rgba(10,10,20,0.85), rgba(10,10,20,0.92)), url('pronto-bg.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
     }
-    .card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 25px -5px rgb(168 85 247 / 0.2);
+    .form-card {
+      transition: all 0.3s ease;
     }
   </style>
 </head>
 <body class="hero-bg min-h-screen text-white">
 
   <div class="min-h-screen flex items-center justify-center p-6">
-    <div class="max-w-2xl w-full">
-      
+    <div class="max-w-4xl w-full">
+
       <!-- Header -->
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <div class="flex justify-center mb-6">
-          <div class="w-24 h-24 bg-gradient-to-br from-purple-600 via-violet-500 to-fuchsia-500 rounded-3xl flex items-center justify-center text-7xl shadow-2xl">
-            ⚡
-          </div>
+          <div class="w-20 h-20 bg-gradient-to-br from-purple-600 to-violet-500 rounded-3xl flex items-center justify-center text-6xl shadow-xl">⚡</div>
         </div>
-        <h1 class="text-6xl font-bold tracking-tighter mb-3">PRONTO STUDIO</h1>
-        <p class="text-2xl text-zinc-300">Creator & Staff Applications</p>
+        <h1 class="text-5xl font-bold tracking-tighter">PRONTO STUDIO</h1>
+        <p class="text-xl text-zinc-300 mt-2">Join the Crew — Creator or Staff</p>
       </div>
 
-      <!-- Main Cards -->
-      <div class="grid md:grid-cols-2 gap-8">
-        
-        <!-- Creator Application Card -->
-        <div onclick="startCreatorApplication()" 
-             class="card bg-zinc-900/80 backdrop-blur-xl border border-purple-500/30 rounded-3xl p-10 cursor-pointer hover:border-purple-500">
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-14 h-14 bg-purple-600 rounded-2xl flex items-center justify-center text-4xl">📸</div>
+      <!-- Tabs -->
+      <div class="flex justify-center mb-10 bg-zinc-900/70 backdrop-blur-xl rounded-3xl p-1 w-fit mx-auto">
+        <button onclick="switchTab(0)" id="tab-0"
+          class="px-10 py-4 rounded-3xl font-semibold text-lg transition-all">Creator Application</button>
+        <button onclick="switchTab(1)" id="tab-1"
+          class="px-10 py-4 rounded-3xl font-semibold text-lg transition-all">Staff Application</button>
+      </div>
+
+      <!-- Creator Form -->
+      <div id="form-0" class="form-card bg-zinc-900/80 backdrop-blur-xl border border-purple-500/30 rounded-3xl p-10">
+        <h2 class="text-3xl font-bold mb-8">Creator Application</h2>
+        <form id="creator-form" onsubmit="submitCreator(event)" class="space-y-8">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h2 class="text-3xl font-bold">Content Creator</h2>
-              <p class="text-purple-400">Join as a Creator</p>
+              <label class="block text-sm text-zinc-400 mb-2">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="c-name" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Email Address <span class="text-red-500">*</span></label>
+              <input type="email" id="c-email" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none">
             </div>
           </div>
-          
-          <ul class="space-y-4 text-zinc-300 mb-10">
-            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Showcase your content</li>
-            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Grow with the team</li>
-            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Get featured</li>
-          </ul>
-          
-          <button class="w-full bg-white text-black py-5 rounded-2xl font-semibold text-lg">
-            Apply as Creator
-          </button>
-        </div>
 
-        <!-- Staff Application Card -->
-        <div onclick="startStaffApplication()" 
-             class="card bg-zinc-900/80 backdrop-blur-xl border border-cyan-500/30 rounded-3xl p-10 cursor-pointer hover:border-cyan-500">
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-14 h-14 bg-cyan-600 rounded-2xl flex items-center justify-center text-4xl">🛡️</div>
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Social Media Links</label>
+            <input type="text" id="c-social" placeholder="Instagram, TikTok, YouTube, X (comma separated)" 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h2 class="text-3xl font-bold">Staff / Team</h2>
-              <p class="text-cyan-400">Join the Team</p>
+              <label class="block text-sm text-zinc-400 mb-2">Portfolio / Website</label>
+              <input type="url" id="c-portfolio" placeholder="https://" 
+                class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Content Niche <span class="text-red-500">*</span></label>
+              <select id="c-niche" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none">
+                <option value="">Select niche...</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Comedy">Comedy / Skits</option>
+                <option value="Tech">Tech / Reviews</option>
+                <option value="Lifestyle">Lifestyle / Vlogs</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Music">Music</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
           </div>
-          
-          <ul class="space-y-4 text-zinc-300 mb-10">
-            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Moderator, Editor, Manager</li>
-            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Help run the studio</li>
-            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Be part of the crew</li>
-          </ul>
-          
-          <button class="w-full bg-white text-black py-5 rounded-2xl font-semibold text-lg">
-            Apply as Staff
+
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Audience Size (per platform)</label>
+            <input type="text" id="c-audience" placeholder="e.g. TikTok: 150K, YouTube: 80K" 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none">
+          </div>
+
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Content Description <span class="text-red-500">*</span></label>
+            <textarea id="c-description" rows="4" required placeholder="Describe your content style and what you create..." 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Experience Level</label>
+              <select id="c-experience" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+                <option value="Professional">Professional</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Availability / Commitment</label>
+              <input type="text" id="c-availability" placeholder="e.g. Full-time, 15h/week" 
+                class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Why do you want to join Pronto Studio? <span class="text-red-500">*</span></label>
+            <textarea id="c-why" rows="5" required placeholder="Be detailed..." 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-purple-500 outline-none"></textarea>
+          </div>
+
+          <button type="submit" 
+            class="w-full bg-gradient-to-r from-purple-600 to-violet-600 py-6 rounded-3xl font-bold text-xl hover:brightness-110 transition">
+            Submit Creator Application
           </button>
-        </div>
-
+        </form>
       </div>
 
-      <div class="text-center mt-12">
-        <p class="text-zinc-400 text-sm">
-          All applications are sent directly to the Pronto Studio team on Discord
-        </p>
+      <!-- Staff Form -->
+      <div id="form-1" class="form-card bg-zinc-900/80 backdrop-blur-xl border border-cyan-500/30 rounded-3xl p-10 hidden">
+        <h2 class="text-3xl font-bold mb-8">Staff Application</h2>
+        <form id="staff-form" onsubmit="submitStaff(event)" class="space-y-8">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Full Name <span class="text-red-500">*</span></label>
+              <input type="text" id="s-name" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Email Address <span class="text-red-500">*</span></label>
+              <input type="email" id="s-email" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500 outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Role Applying For <span class="text-red-500">*</span></label>
+            <select id="s-role" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500 outline-none">
+              <option value="">Select role...</option>
+              <option value="Moderator">Moderator</option>
+              <option value="Content Reviewer">Content Reviewer</option>
+              <option value="Editor">Editor</option>
+              <option value="Manager">Manager</option>
+              <option value="Admin">Admin</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Experience <span class="text-red-500">*</span></label>
+            <textarea id="s-experience" rows="4" required placeholder="Describe your previous experience..." 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500 outline-none"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Why should we hire you? <span class="text-red-500">*</span></label>
+            <textarea id="s-why" rows="5" required placeholder="Tell us why you're a great fit..." 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500 outline-none"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Previous Moderation / Admin Experience</label>
+            <textarea id="s-mod" rows="3" placeholder="Any previous mod or admin experience?" 
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-cyan-500 outline-none"></textarea>
+          </div>
+
+          <button type="submit" 
+            class="w-full bg-gradient-to-r from-cyan-600 to-teal-600 py-6 rounded-3xl font-bold text-xl hover:brightness-110 transition">
+            Submit Staff Application
+          </button>
+        </form>
       </div>
+
     </div>
   </div>
 
   <script>
     const WEBHOOK_URL = "https://discord.com/api/webhooks/1477127903736234157/mALJT5iM6LOD2lcpXyoWIQDha9FNbL7HjgL0AP8OExi19wNAQWcZ3yoFPd2eW6V_aO1Q";
 
-    async function sendApplication(title, color, fields) {
+    function switchTab(tab) {
+      document.getElementById('form-0').classList.toggle('hidden', tab !== 0);
+      document.getElementById('form-1').classList.toggle('hidden', tab !== 1);
+      
+      document.getElementById('tab-0').classList.toggle('bg-zinc-800', tab === 0);
+      document.getElementById('tab-1').classList.toggle('bg-zinc-800', tab === 1);
+    }
+
+    async function sendToDiscord(title, color, fields) {
       const payload = {
         username: "Pronto Studio Bot",
         embeds: [{
           title: title,
           color: color,
           fields: fields,
-          timestamp: new Date().toISOString(),
-          footer: { text: "Pronto Studio Applications" }
+          timestamp: new Date().toISOString()
         }]
       };
 
@@ -120,56 +211,53 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-      } catch (err) {
-        console.log("Notification sent to Discord");
-      }
+      } catch (e) {}
     }
 
-    function startCreatorApplication() {
-      const name = prompt("Full Name:");
-      if (!name) return;
-
-      const email = prompt("Email Address:");
-      if (!email) return;
-
-      const niche = prompt("Content Niche (Gaming, Comedy, Tech, etc.):");
-      if (!niche) return;
-
-      const why = prompt("Why do you want to join Pronto Studio? (short answer)");
+    function submitCreator(e) {
+      e.preventDefault();
 
       const fields = [
-        { name: "👤 Name", value: name, inline: true },
-        { name: "📧 Email", value: email, inline: true },
-        { name: "🎥 Niche", value: niche, inline: true },
-        { name: "💬 Why Join?", value: why || "No message", inline: false }
+        { name: "Name", value: document.getElementById('c-name').value, inline: true },
+        { name: "Email", value: document.getElementById('c-email').value, inline: true },
+        { name: "Social Links", value: document.getElementById('c-social').value || "None", inline: false },
+        { name: "Portfolio", value: document.getElementById('c-portfolio').value || "None", inline: false },
+        { name: "Niche", value: document.getElementById('c-niche').value, inline: true },
+        { name: "Audience", value: document.getElementById('c-audience').value || "Not specified", inline: true },
+        { name: "Description", value: document.getElementById('c-description').value, inline: false },
+        { name: "Experience Level", value: document.getElementById('c-experience').value, inline: true },
+        { name: "Availability", value: document.getElementById('c-availability').value || "Not specified", inline: true },
+        { name: "Why Join?", value: document.getElementById('c-why').value, inline: false }
       ];
 
-      sendApplication("🎥 New Creator Application", 0xa855f7, fields);
-      alert("✅ Your Creator Application has been sent successfully!\nThe team will review it soon.");
+      sendToDiscord("🎥 New Creator Application", 0xa855f7, fields);
+      
+      alert("✅ Creator Application submitted successfully!\nThe team has been notified on Discord.");
+      e.target.reset();
     }
 
-    function startStaffApplication() {
-      const name = prompt("Full Name:");
-      if (!name) return;
-
-      const email = prompt("Email Address:");
-      if (!email) return;
-
-      const role = prompt("What role are you applying for? (Moderator, Editor, Manager, etc.)");
-      if (!role) return;
-
-      const experience = prompt("Tell us about your experience (short answer):");
+    function submitStaff(e) {
+      e.preventDefault();
 
       const fields = [
-        { name: "👤 Name", value: name, inline: true },
-        { name: "📧 Email", value: email, inline: true },
-        { name: "🛡️ Role", value: role, inline: true },
-        { name: "📝 Experience", value: experience || "No details", inline: false }
+        { name: "Name", value: document.getElementById('s-name').value, inline: true },
+        { name: "Email", value: document.getElementById('s-email').value, inline: true },
+        { name: "Role", value: document.getElementById('s-role').value, inline: true },
+        { name: "Experience", value: document.getElementById('s-experience').value, inline: false },
+        { name: "Why Hire You?", value: document.getElementById('s-why').value, inline: false },
+        { name: "Previous Mod/Admin Experience", value: document.getElementById('s-mod').value || "None", inline: false }
       ];
 
-      sendApplication("🛡️ New Staff Application", 0x22d3ee, fields);
-      alert("✅ Your Staff Application has been sent successfully!\nThe team will review it soon.");
+      sendToDiscord("🛡️ New Staff Application", 0x22d3ee, fields);
+      
+      alert("✅ Staff Application submitted successfully!\nThe team has been notified on Discord.");
+      e.target.reset();
     }
+
+    // Default to Creator tab
+    window.onload = () => {
+      switchTab(0);
+    };
   </script>
 </body>
 </html>

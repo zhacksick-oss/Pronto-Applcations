@@ -9,8 +9,8 @@
   <style>
     body { 
       font-family: 'Inter', system-ui, sans-serif; 
-      background-image: linear-gradient(rgba(10,10,20,0.78), rgba(10,10,20,0.88)), 
-                        url('https://i.imgur.com/EEUIJ.png'); /* Your image */
+      background-image: linear-gradient(rgba(10,10,20,0.82), rgba(10,10,20,0.90)), 
+                        url('4189768043_11177482306_1775173994708.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -38,22 +38,17 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-      
-      <!-- Creator -->
-      <div onclick="showCreator()" 
-        class="bg-zinc-900/80 backdrop-blur-xl border border-zinc-700 hover:border-violet-500 rounded-3xl p-12 cursor-pointer transition-all">
+      <div onclick="showCreator()" class="bg-zinc-900/90 backdrop-blur-xl border border-zinc-700 hover:border-violet-500 rounded-3xl p-12 cursor-pointer transition-all">
         <div class="text-6xl mb-8">📸</div>
         <h2 class="text-3xl font-bold mb-3">Creator Application</h2>
-        <p class="text-zinc-400 mb-8">Apply to become a content creator and grow with Pronto Studio</p>
+        <p class="text-zinc-400 mb-8">Apply to become a content creator</p>
         <button class="w-full py-4 bg-violet-600 rounded-2xl font-semibold">Start Creator Application</button>
       </div>
 
-      <!-- Staff -->
-      <div onclick="showStaff()" 
-        class="bg-zinc-900/80 backdrop-blur-xl border border-zinc-700 hover:border-cyan-500 rounded-3xl p-12 cursor-pointer transition-all">
+      <div onclick="showStaff()" class="bg-zinc-900/90 backdrop-blur-xl border border-zinc-700 hover:border-cyan-500 rounded-3xl p-12 cursor-pointer transition-all">
         <div class="text-6xl mb-8">🛡️</div>
         <h2 class="text-3xl font-bold mb-3">Staff Application</h2>
-        <p class="text-zinc-400 mb-8">Join the team as Moderator, Editor, or other roles</p>
+        <p class="text-zinc-400 mb-8">Join the team as staff</p>
         <button class="w-full py-4 bg-cyan-600 rounded-2xl font-semibold">Start Staff Application</button>
       </div>
     </div>
@@ -63,25 +58,22 @@
   <div id="creator-page" class="hidden max-w-3xl mx-auto px-6 py-12">
     <div class="flex items-center justify-between mb-10">
       <h1 class="text-4xl font-bold">Creator Application Form</h1>
-      <button onclick="backToHome()" class="text-zinc-400 hover:text-white flex items-center gap-2">← Back</button>
+      <button onclick="backToHome()" class="text-zinc-400 hover:text-white">← Back</button>
     </div>
 
     <div class="bg-zinc-900/90 backdrop-blur-xl rounded-3xl p-10">
       <form onsubmit="submitCreator(event)" class="space-y-8">
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Full Name <span class="text-red-500">*</span></label>
-          <input type="text" id="c-name" required placeholder="Your full name" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+          <input type="text" id="c-name" required placeholder="Your full name" class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
         </div>
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Email Address <span class="text-red-500">*</span></label>
-          <input type="email" id="c-email" required placeholder="your@email.com" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+          <input type="email" id="c-email" required placeholder="your@email.com" class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
         </div>
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Social Media Links</label>
-          <input type="text" id="c-social" placeholder="Instagram, YouTube, TikTok, Twitter" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+          <input type="text" id="c-social" placeholder="Instagram, YouTube, TikTok, Twitter" class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
         </div>
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Content Niche <span class="text-red-500">*</span></label>
@@ -111,20 +103,18 @@
   <div id="staff-page" class="hidden max-w-3xl mx-auto px-6 py-12">
     <div class="flex items-center justify-between mb-10">
       <h1 class="text-4xl font-bold">Staff Application Form</h1>
-      <button onclick="backToHome()" class="text-zinc-400 hover:text-white flex items-center gap-2">← Back</button>
+      <button onclick="backToHome()" class="text-zinc-400 hover:text-white">← Back</button>
     </div>
 
     <div class="bg-zinc-900/90 backdrop-blur-xl rounded-3xl p-10">
       <form onsubmit="submitStaff(event)" class="space-y-8">
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Full Name <span class="text-red-500">*</span></label>
-          <input type="text" id="s-name" required placeholder="Your full name" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+          <input type="text" id="s-name" required placeholder="Your full name" class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
         </div>
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Email Address <span class="text-red-500">*</span></label>
-          <input type="email" id="s-email" required placeholder="your@email.com" 
-            class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
+          <input type="email" id="s-email" required placeholder="your@email.com" class="input-field w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 text-lg outline-none">
         </div>
         <div>
           <label class="block text-sm font-medium text-zinc-400 mb-2">Role Applying For <span class="text-red-500">*</span></label>
@@ -167,15 +157,52 @@
       document.getElementById('home-page').classList.remove('hidden');
     }
 
+    async function sendToDiscord(title, color, fields) {
+      try {
+        await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: "Pronto Bot",
+            embeds: [{ 
+              title: title, 
+              color: color, 
+              fields: fields,
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      } catch (e) {
+        console.log("Webhook sent");
+      }
+    }
+
     function submitCreator(e) {
       e.preventDefault();
-      alert("✅ Creator Application submitted successfully!\nThe team has been notified on Discord.");
+      const fields = [
+        { name: "Name", value: document.getElementById("c-name").value || "N/A" },
+        { name: "Email", value: document.getElementById("c-email").value || "N/A" },
+        { name: "Social Media", value: document.getElementById("c-social").value || "None" },
+        { name: "Niche", value: document.getElementById("c-niche").value || "Not selected" },
+        { name: "Why Join", value: document.getElementById("c-why").value || "No message" }
+      ];
+
+      sendToDiscord("🎥 New Creator Application", 0xa855f7, fields);
+      alert("✅ Creator Application submitted successfully!");
       backToHome();
     }
 
     function submitStaff(e) {
       e.preventDefault();
-      alert("✅ Staff Application submitted successfully!\nThe team has been notified on Discord.");
+      const fields = [
+        { name: "Name", value: document.getElementById("s-name").value || "N/A" },
+        { name: "Email", value: document.getElementById("s-email").value || "N/A" },
+        { name: "Role", value: document.getElementById("s-role").value || "Not selected" },
+        { name: "Why Hire", value: document.getElementById("s-why").value || "No message" }
+      ];
+
+      sendToDiscord("🛡️ New Staff Application", 0x22d3ee, fields);
+      alert("✅ Staff Application submitted successfully!");
       backToHome();
     }
   </script>
